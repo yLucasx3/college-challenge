@@ -1,23 +1,23 @@
-export interface StudentProps {
+export interface IStudentProps {
   id?: number;
   full_name: string;
   email: string;
   academicRecord: string;
   document: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export class Student implements StudentProps {
+export class Student implements IStudentProps {
   readonly id?: number;
   full_name: string;
   email: string;
   academicRecord: string;
   document: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 
-  constructor(studentProps?: StudentProps) {
+  constructor(studentProps?: IStudentProps) {
     if (studentProps) {
       Object.assign(this, studentProps);
     }

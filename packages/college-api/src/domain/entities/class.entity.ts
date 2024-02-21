@@ -1,4 +1,4 @@
-export interface ClassProps {
+export interface IClassProps {
   id?: number;
   className: string;
   classCode: string;
@@ -9,7 +9,7 @@ export interface ClassProps {
   updatedAt: string;
 }
 
-export class Class implements ClassProps {
+export class Class implements IClassProps {
   id?: number;
   className: string;
   classCode: string;
@@ -19,7 +19,7 @@ export class Class implements ClassProps {
   createdAt: string;
   updatedAt: string;
 
-  constructor(classProps?: ClassProps) {
+  constructor(classProps?: IClassProps) {
     if (classProps) {
       Object.assign(this, classProps);
     }

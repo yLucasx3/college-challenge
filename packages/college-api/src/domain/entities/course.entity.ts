@@ -1,4 +1,4 @@
-export interface CourseProps {
+export interface ICourseProps {
   id?: number;
   name: string;
   description: string;
@@ -6,14 +6,14 @@ export interface CourseProps {
   updatedAt: Date;
 }
 
-export class Course implements CourseProps {
+export class Course implements ICourseProps {
   id?: number | undefined;
   name: string;
   description: string;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(courseProps?: CourseProps) {
+  constructor(courseProps?: ICourseProps) {
     if (courseProps) {
       Object.assign(this, courseProps);
     }
