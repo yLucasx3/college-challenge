@@ -1,4 +1,4 @@
-import { Student } from "./../../../domain/entities/student.entity";
+import { Student } from "@/domain/entities/student.entity";
 
 interface CreateStudentRequestProps {
   full_name: string;
