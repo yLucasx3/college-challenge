@@ -8,9 +8,9 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=clean-arch-scaffold
+      - POSTGRES_DB=college_challenge
     volumes:
-      - clean_arch_scaffold_pg_data:/bitnami/postgresql
+      - college_challenge_api_pg_data:/bitnami/postgresql
 
 volumes:
-  clean_arch_scaffold_pg_data:
+  college_challenge_api_pg_data:

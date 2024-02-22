@@ -4,8 +4,8 @@ export interface IStudentProps {
   email: string;
   academicRecord: string;
   document: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class Student implements IStudentProps {
@@ -14,8 +14,8 @@ export class Student implements IStudentProps {
   email: string;
   academicRecord: string;
   document: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor(studentProps?: IStudentProps) {
     if (studentProps) {
