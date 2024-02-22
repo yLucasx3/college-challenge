@@ -2,5 +2,5 @@ import { IHttpRequestContract } from "./request.contract";
 import { IHttpResponseContract } from "./response.contract";
 
 export interface IHttpControllerContract {
-  execute(httpRequest: IHttpRequestContract): Promise<IHttpResponseContract>;
+  handle(httpRequest: IHttpRequestContract): Promise<IHttpResponseContract>;
 }

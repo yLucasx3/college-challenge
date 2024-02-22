@@ -2,10 +2,10 @@ import { BaseEntity, IBaseProps } from "./base.entity";
 
 export type IStudentProps = {
   id?: number;
-  full_name: string;
+  fullName: string;
   email: string;
-  academicRecord: string;
   document: string;
+  academicRecord?: string;
 } & IBaseProps;
 
 export class Student
@@ -13,12 +13,12 @@ export class Student
   implements IStudentProps
 {
   readonly id?: number;
-  full_name: string;
+  fullName: string;
   email: string;
-  academicRecord: string;
   document: string;
+  academicRecord?: string;
 
   show() {
-    return `${this.full_name}-${this.email}`;
+    return `${this.fullName}-${this.email}`;
   }
 }

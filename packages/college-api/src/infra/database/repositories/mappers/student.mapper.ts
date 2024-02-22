@@ -7,7 +7,10 @@ export namespace StudentMappper {
   export const toDatabase = (
     student: IStudentProps
   ): Optional<PrismaStudent, "id"> => {
-    return withTimestamps(student);
+    return withTimestamps({
+      ...student,
+      academicRecord: student.academicRecord!,
+    });
   };
 
   export const fromDatabase = (student: PrismaStudent): Student => {

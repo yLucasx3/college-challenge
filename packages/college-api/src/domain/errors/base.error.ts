@@ -1,3 +1,3 @@
 export class BaseError extends Error {
-  httpCode: number;
+  httpCode: number = 400;
 }

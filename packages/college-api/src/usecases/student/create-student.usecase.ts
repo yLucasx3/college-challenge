@@ -14,12 +14,11 @@ export class CreateStudentUseCase {
   ) {}
 
   async execute(student: Student, classId: number): Promise<Student> {
-    const { full_name, email, academicRecord, document } = student;
+    const { fullName, email, document } = student;
 
     const newStudent = await this.studentRepository.create({
-      full_name,
+      fullName,
       email,
-      academicRecord,
       document,
     });
 
