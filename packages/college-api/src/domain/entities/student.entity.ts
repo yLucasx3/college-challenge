@@ -1,27 +1,22 @@
-export interface IStudentProps {
+import { BaseEntity, IBaseProps } from "./base.entity";
+
+export type IStudentProps = {
   id?: number;
   full_name: string;
   email: string;
   academicRecord: string;
   document: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+} & IBaseProps;
 
-export class Student implements IStudentProps {
+export class Student
+  extends BaseEntity<IStudentProps>
+  implements IStudentProps
+{
   readonly id?: number;
   full_name: string;
   email: string;
   academicRecord: string;
   document: string;
-  createdAt: Date;
-  updatedAt: Date;
-
-  constructor(studentProps?: IStudentProps) {
-    if (studentProps) {
-      Object.assign(this, studentProps);
-    }
-  }
 
   show() {
     return `${this.full_name}-${this.email}`;

@@ -1,19 +1,16 @@
-export interface IEnrollmentProps {
+import { BaseEntity, IBaseProps } from "./base.entity";
+
+export type IEnrollmentProps = {
   id?: number;
   studentId: number;
   classId: number;
-  enrollmentDate: Date;
-}
+} & IBaseProps;
 
-export class Enrollment implements IEnrollmentProps {
-  id?: number | undefined;
+export class Enrollment
+  extends BaseEntity<IEnrollmentProps>
+  implements IEnrollmentProps
+{
+  id?: number;
   studentId: number;
   classId: number;
-  enrollmentDate: Date;
-
-  constructor(enrollmentProps?: IEnrollmentProps) {
-    if (enrollmentProps) {
-      Object.assign(this, enrollmentProps);
-    }
-  }
 }

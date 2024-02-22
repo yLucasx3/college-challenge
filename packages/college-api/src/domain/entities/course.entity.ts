@@ -1,23 +1,15 @@
-export interface ICourseProps {
+import { BaseEntity, IBaseProps } from "./base.entity";
+
+export type ICourseProps = {
   id?: number;
   name: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+} & IBaseProps;
 
-export class Course implements ICourseProps {
-  id?: number | undefined;
+export class Course extends BaseEntity<ICourseProps> implements ICourseProps {
+  id?: number;
   name: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
-
-  constructor(courseProps?: ICourseProps) {
-    if (courseProps) {
-      Object.assign(this, courseProps);
-    }
-  }
 
   show() {
     return `${this.id}-${this.name}`;

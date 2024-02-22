@@ -1,31 +1,19 @@
-export interface IClassProps {
-  id?: number;
-  className: string;
-  classCode: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { BaseEntity, IBaseProps } from "./base.entity";
 
-export class Class implements IClassProps {
+export type IClassProps = {
   id?: number;
-  className: string;
-  classCode: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  createdAt: string;
-  updatedAt: string;
+  semester: string;
+  schedule: string;
+  courseId: number;
+} & IBaseProps;
 
-  constructor(classProps?: IClassProps) {
-    if (classProps) {
-      Object.assign(this, classProps);
-    }
-  }
+export class Class extends BaseEntity<IClassProps> implements IClassProps {
+  id?: number;
+  semester: string;
+  schedule: string;
+  courseId: number;
 
   show() {
-    return `${this.className}-${this.classCode}`;
+    return `${this.id}-${this.schedule}`;
   }
 }
