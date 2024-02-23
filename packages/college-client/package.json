@@ -1,26 +1,23 @@
 {
   "name": "college-client",
+  "private": true,
   "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "Lucas Ariel <ylucasx3@gmail.com>",
-  "homepage": "https://github.com/yLucasx3/college-challenge#readme",
-  "license": "ISC",
-  "main": "lib/college-client.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yLucasx3/college-challenge.git"
-  },
+  "type": "module",
   "scripts": {
-    "test": "node ./__tests__/college-client.test.js"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
-  "bugs": {
-    "url": "https://github.com/yLucasx3/college-challenge/issues"
+  "dependencies": {
+    "vue": "^3.4.19",
+    "vue-router": "^4.3.0",
+    "vuetify": "^3.5.5"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vue-tsc": "^1.8.27"
   }
 }
