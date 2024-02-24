@@ -1,15 +1,84 @@
 import { Student, IStudentProps } from "@/domain/entities/student.entity";
-import { IStudentRepository } from "@/domain/repositories/student.repository";
+import {
+  IStudentPropsWithEnrollment,
+  IStudentRepository,
+} from "@/domain/repositories/student.repository";
+import {
+  IPaginatedRequest,
+  IPaginatedResponse,
+} from "@/domain/shared/paginated-types";
 import { prisma } from "../../configs/prisma";
 import { StudentMappper } from "../mappers/student.mapper";
+import { EnrollmentMappper } from "../mappers/enrollment.mapper";
+import { ClassMappper } from "../mappers/class.mapper";
+import { CourseMapper } from "../mappers/course.mapper";
 
 export class PostgreSQLStudentRepository implements IStudentRepository {
-  async list(): Promise<Student[] | null> {
-    const students = await prisma.student.findMany();
+  async list(
+    options: IPaginatedRequest
+  ): Promise<IPaginatedResponse<IStudentPropsWithEnrollment>> {
+    const { offset, limit, orderBy, orderDirection, filter } = options;
 
-    if (!students.length) return null;
+    let filterOptions = filter;
 
-    return students.map(StudentMappper.fromDatabase);
+    if (filter?.name) {
+      filterOptions = { name: filter.name };
+    }
+
+    const [students, totalItems] = await Promise.all([
+      prisma.student.findMany({
+        include: {
+          enrollment: {
+            include: {
+              class: {
+                include: {
+                  course: {},
+                },
+              },
+            },
+          },
+        },
+        skip: offset ?? 0,
+        take: limit ?? 10,
+        ...(filter ? { where: filterOptions } : {}),
+        ...(orderBy ? { orderBy: { [orderBy]: orderDirection || "asc" } } : {}),
+      }),
+      prisma.student.count(),
+    ]);
+
+    const totalPages = Math.ceil(totalItems / limit);
+    const currentPage = Math.floor(offset / limit) + 1;
+
+    return {
+      items: students.map((student) => {
+        const mappedStudent = StudentMappper.fromDatabase(student);
+        const mappedEnrollment = EnrollmentMappper.fromDatabase(
+          student.enrollment
+        );
+        const mappedClass = ClassMappper.fromDatabase(student.enrollment.class);
+        const mappedCourse = CourseMapper.fromDatabase(
+          student.enrollment.class.course
+        );
+
+        return {
+          ...mappedStudent,
+          enrollment: {
+            ...mappedEnrollment,
+            class: {
+              ...mappedClass,
+              course: {
+                ...mappedCourse,
+              },
+            },
+          },
+        };
+      }),
+      pageInfos: {
+        totalItems,
+        totalPages,
+        currentPage,
+      },
+    };
   }
 
   async show(id: number): Promise<Student | null> {

@@ -35,6 +35,8 @@ export class CreateStudentUseCase {
       throw new StudentAlreadyExistsError();
     }
 
+    console.log("PASSou aq");
+
     const findedClass = await this.classRepository.show(classId);
 
     if (!findedClass?.id) {

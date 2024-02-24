@@ -7,12 +7,8 @@ export class Email extends BaseValidation {
   }
 
   isValid(): boolean {
-    const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const expression: RegExp = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
 
-    return (
-      RegExp(expression).test(this.getValue()) &&
-      String(this.getValue()).length > 1 &&
-      typeof this.getValue() == "string"
-    );
+    return RegExp(expression).test(this.getValue());
   }
 }
