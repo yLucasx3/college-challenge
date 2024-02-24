@@ -27,4 +27,12 @@ export class PostgreSQLUserRepository implements IUserRepository {
 
     return UserMapper.fromDatabase(newUser);
   }
+
+  async authenticate(name: string, password: string): Promise<boolean> {
+    const findedUser = await prisma.user.findFirst({
+      where: { name, password },
+    });
+
+    return !!findedUser;
+  }
 }
