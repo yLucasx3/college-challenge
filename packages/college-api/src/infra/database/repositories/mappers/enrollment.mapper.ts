@@ -10,7 +10,7 @@ export namespace EnrollmentMappper {
   export const toDatabase = (
     enrollment: IEnrollmentProps
   ): Optional<PrismaEnrollment, "id"> => {
-    return withTimestamps<IEnrollmentProps>(enrollment);
+    return withTimestamps(enrollment);
   };
 
   export const fromDatabase = (enrollment: PrismaEnrollment): Enrollment => {
