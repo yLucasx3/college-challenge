@@ -17,11 +17,12 @@ export const badRequest = (error: Error): IHttpResponseContract => ({
 });
 
 export const genericError = (baseError: BaseError): IHttpResponseContract => ({
-  statusCode: baseError.httpCode,
+  statusCode: baseError.statusCode,
   data: { error: baseError.message },
 });
 
 export const handleError = (error: unknown) => {
+  console.error(error);
   if (error instanceof BaseError) {
     return genericError(error);
   }

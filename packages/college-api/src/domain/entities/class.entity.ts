@@ -2,18 +2,18 @@ import { BaseEntity, IBaseProps } from "./base.entity";
 
 export type IClassProps = {
   id?: number;
-  semester: string;
-  schedule: string;
+  name: string;
   courseId: number;
 } & IBaseProps;
 
 export class Class extends BaseEntity<IClassProps> implements IClassProps {
-  id?: number;
-  semester: string;
-  schedule: string;
+  readonly id?: number;
+  name: string;
   courseId: number;
 
-  show() {
-    return `${this.id}-${this.schedule}`;
+  constructor(props?: IClassProps) {
+    super(props);
+
+    Object.assign(this, props);
   }
 }

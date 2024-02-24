@@ -13,13 +13,13 @@ export class CreateStudentController implements IHttpControllerContract {
 
   async handle(request: IHttpRequestContract): Promise<IHttpResponseContract> {
     try {
-      const { classId } = request.params;
-
-      const bodtDto = new CreateStudentRequestDTO().map(request.body);
+      const { student: bodyDto, classId } = new CreateStudentRequestDTO().map(
+        request.body
+      );
 
       const newStudent = await this.createStudentUseCase.execute(
-        bodtDto,
-        classId
+        bodyDto,
+        Number(classId)
       );
 
       const response = new CreateStudentResponseDTO().map(newStudent);

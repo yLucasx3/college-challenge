@@ -20,6 +20,16 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
     return StudentMappper.fromDatabase(findedStudent);
   }
 
+  async showByDocument(document: string): Promise<Student | null> {
+    const findedStudend = await prisma.student.findUnique({
+      where: { document },
+    });
+
+    if (!findedStudend) return null;
+
+    return StudentMappper.fromDatabase(findedStudend);
+  }
+
   async create(student: IStudentProps): Promise<Student> {
     const newStudent = await prisma.student.create({
       data: StudentMappper.toDatabase(student),
@@ -28,10 +38,10 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
     return StudentMappper.fromDatabase(newStudent);
   }
 
-  async update(id: number, student: Partial<IStudentProps>): Promise<Student> {
+  async update(id: number, student: IStudentProps): Promise<Student> {
     const updatedStudent = await prisma.student.update({
       where: { id },
-      data: student,
+      data: StudentMappper.toDatabase(student),
     });
 
     return StudentMappper.fromDatabase(updatedStudent);

@@ -4,7 +4,7 @@ export class StudentEmptyError extends BaseError {
   constructor() {
     super("Student is empty!");
 
-    this.httpCode = 400;
+    this.statusCode = 400;
     this.name = "StudentEmptyError";
   }
 }

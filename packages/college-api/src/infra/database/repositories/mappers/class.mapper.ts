@@ -7,7 +7,7 @@ export namespace ClassMappper {
   export const toDatabase = (
     clazz: IClassProps
   ): Optional<PrismaClass, "id"> => {
-    return withTimestamps<IClassProps>(clazz);
+    return withTimestamps(clazz);
   };
 
   export const fromDatabase = (clazz: PrismaClass): Class => {
