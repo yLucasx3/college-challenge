@@ -38,7 +38,7 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
     return StudentMappper.fromDatabase(newStudent);
   }
 
-  async update(id: number, student: IStudentProps): Promise<Student> {
+  async update(id: number, student: Partial<IStudentProps>): Promise<Student> {
     const updatedStudent = await prisma.student.update({
       where: { id },
       data: StudentMappper.toDatabase(student),

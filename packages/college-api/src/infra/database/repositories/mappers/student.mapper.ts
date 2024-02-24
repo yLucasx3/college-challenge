@@ -8,13 +8,13 @@ import { FullName } from "@/domain/validation/invalid-full-name.validation";
 
 export namespace StudentMappper {
   export const toDatabase = (
-    student: IStudentProps
+    student: IStudentProps | Partial<IStudentProps>
   ): Optional<PrismaStudent, "id"> => {
     return withTimestamps({
       ...student,
-      fullName: student.fullName.getValue(),
-      email: student.email.getValue(),
-      document: student.document.getValue(),
+      fullName: student?.fullName?.getValue(),
+      email: student?.email?.getValue(),
+      document: student?.document?.getValue(),
       academicRecord: student.academicRecord!,
       enrollmentId: student.enrollmentId!,
     });
