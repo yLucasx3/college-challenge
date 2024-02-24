@@ -14,14 +14,16 @@ datasource db {
 }
 
 model Student {
-  id             Int          @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   fullName       String
   email          String
-  academicRecord String       @unique
-  document       String       @unique
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  enrollments    Enrollment[]
+  academicRecord String   @unique
+  document       String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
+  enrollmentId Int
 }
 
 model Course {
@@ -35,8 +37,7 @@ model Course {
 
 model Class {
   id        Int      @id @default(autoincrement())
-  semester  String
-  schedule  String
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -50,9 +51,7 @@ model Enrollment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  student   Student @relation(fields: [studentId], references: [id])
-  studentId Int
-
-  class   Class @relation(fields: [classId], references: [id])
+  class   Class     @relation(fields: [classId], references: [id])
   classId Int
+  Student Student[]
 }

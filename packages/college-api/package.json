@@ -27,6 +27,9 @@
   "bugs": {
     "url": "https://github.com/yLucasx3/college-challenge/issues"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
