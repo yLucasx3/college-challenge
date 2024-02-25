@@ -1,6 +1,6 @@
 import { BaseError } from "../base.error";
 
-export class SigninInvalidCredentials extends BaseError {
+export class SigninInvalidCredentialsError extends BaseError {
   constructor() {
     super("Invalid credentials!");
 

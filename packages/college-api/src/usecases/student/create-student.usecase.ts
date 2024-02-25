@@ -14,12 +14,12 @@ export class CreateStudentUseCase {
     private studentRepository: IStudentRepository,
     private classRepository: IClassRepository,
     private enrollmentRepository: IEnrollmentRepository
-  ) {}
+  ) { }
 
   async execute(student: Student, classId: number): Promise<Student> {
     const { fullName, email, document } = student;
 
-    if (!fullName || !email || !document) {
+    if (!fullName.getValue() || !email.getValue() || !document.getValue()) {
       throw new StudentMissingPropertiesError();
     }
 
@@ -34,8 +34,6 @@ export class CreateStudentUseCase {
     if (findedStudent?.id) {
       throw new StudentAlreadyExistsError();
     }
-
-    console.log("PASSou aq");
 
     const findedClass = await this.classRepository.show(classId);
 

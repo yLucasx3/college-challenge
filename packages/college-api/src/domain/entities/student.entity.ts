@@ -14,8 +14,7 @@ export type IStudentProps = {
 
 export class Student
   extends BaseEntity<IStudentProps>
-  implements IStudentProps
-{
+  implements IStudentProps {
   readonly id?: number;
   fullName: FullName;
   email: Email;

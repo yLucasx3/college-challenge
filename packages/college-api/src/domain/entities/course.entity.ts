@@ -11,7 +11,9 @@ export class Course extends BaseEntity<ICourseProps> implements ICourseProps {
   name: string;
   description: string;
 
-  show() {
-    return `${this.id}-${this.name}`;
+  constructor(props?: ICourseProps) {
+    super();
+
+    Object.assign(this, props);
   }
 }

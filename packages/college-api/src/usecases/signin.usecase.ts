@@ -1,5 +1,5 @@
 import { User } from "@/domain/entities/user.entity";
-import { SigninInvalidCredentials } from "@/domain/errors/authentication/signin-invalid-credentials.error";
+import { SigninInvalidCredentialsError } from "@/domain/errors/authentication/signin-invalid-credentials.error";
 import { IAccessTokenProvider } from "@/domain/providers/access-token.provider";
 import { IPasswordProvider } from "@/domain/providers/password.provider";
 import { IUserRepository } from "@/domain/repositories/user.repository";
@@ -9,7 +9,7 @@ export class SigninUseCase {
     private userRepository: IUserRepository,
     private passwordProvider: IPasswordProvider,
     private accessTokenProvider: IAccessTokenProvider
-  ) {}
+  ) { }
 
   async execute(
     name: string,
@@ -18,7 +18,7 @@ export class SigninUseCase {
     const findedUser = await this.userRepository.showByName(name);
 
     if (!findedUser?.id) {
-      throw new SigninInvalidCredentials();
+      throw new SigninInvalidCredentialsError();
     }
 
     const isPasswordCorrect = await this.passwordProvider.compare(
@@ -27,7 +27,7 @@ export class SigninUseCase {
     );
 
     if (!isPasswordCorrect) {
-      throw new SigninInvalidCredentials();
+      throw new SigninInvalidCredentialsError();
     }
 
     const accessToken = await this.accessTokenProvider.encode(

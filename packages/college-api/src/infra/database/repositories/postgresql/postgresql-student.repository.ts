@@ -32,7 +32,15 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
             include: {
               class: {
                 include: {
-                  course: {},
+                  course: {
+                    select: {
+                      id: true,
+                      name: true,
+                      description: true,
+                      createdAt: true,
+                      updatedAt: true,
+                    }
+                  },
                 },
               },
             },
@@ -50,7 +58,7 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
     const currentPage = Math.floor(offset / limit) + 1;
 
     return {
-      items: students.map((student) => {
+      items: students.map((student: any) => {
         const mappedStudent = StudentMappper.fromDatabase(student);
         const mappedEnrollment = EnrollmentMappper.fromDatabase(
           student.enrollment
