@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import StudentsDataTable from '../components/StudentsDataTable.vue'
+import StudentsDataTable from '../../components/StudentsDataTable.vue';
 
 export default defineComponent({
   components: { StudentsDataTable },

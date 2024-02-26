@@ -1,15 +1,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import AppBar from "./components/AppBar.vue";
+import AppBar from "../components/AppBar.vue";
 
 export default defineComponent({
   components: { AppBar },
-  name: "App",
+  name: "DefaultLayout",
 });
 </script>
 
 <template>
-  <router-view></router-view>
+  <app-bar />
 </template>
-
-<style scoped></style>

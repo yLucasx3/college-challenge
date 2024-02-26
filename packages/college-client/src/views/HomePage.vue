@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'HomePageVue',
   data() {
     return {}
   }
@@ -9,7 +10,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <span>Home page</span>
+  <span>Welcolme to College Challenge</span>
 </template>
 
 <style scoped></style>

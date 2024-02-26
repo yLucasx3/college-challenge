@@ -21,4 +21,9 @@ const vuetify = createVuetify({
   },
 });
 
-createApp(AppVue).use(router).use(vuetify).mount("#app");
+const app = createApp(AppVue);
+
+app.use(router);
+app.use(vuetify);
+
+app.mount("#app");
