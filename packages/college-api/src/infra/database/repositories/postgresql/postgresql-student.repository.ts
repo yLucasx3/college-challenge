@@ -1,22 +1,14 @@
 import { Student, IStudentProps } from "@/domain/entities/student.entity";
-import {
-  IStudentPropsWithEnrollment,
-  IStudentRepository,
-} from "@/domain/repositories/student.repository";
+import { IStudentRepository } from "@/domain/repositories/student.repository";
 import {
   IPaginatedRequest,
   IPaginatedResponse,
 } from "@/domain/shared/paginated-types";
 import { prisma } from "../../configs/prisma";
 import { StudentMappper } from "../mappers/student.mapper";
-import { EnrollmentMappper } from "../mappers/enrollment.mapper";
-import { ClassMappper } from "../mappers/class.mapper";
-import { CourseMapper } from "../mappers/course.mapper";
 
 export class PostgreSQLStudentRepository implements IStudentRepository {
-  async list(
-    options: IPaginatedRequest
-  ): Promise<IPaginatedResponse<IStudentPropsWithEnrollment>> {
+  async list(options: IPaginatedRequest): Promise<IPaginatedResponse<Student>> {
     const { offset, limit, orderBy, orderDirection, filter } = options;
 
     let filterOptions = filter;
@@ -39,15 +31,15 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
                       description: true,
                       createdAt: true,
                       updatedAt: true,
-                    }
+                    },
                   },
                 },
               },
             },
           },
         },
-        skip: offset ?? 0,
-        take: limit ?? 10,
+        skip: offset,
+        take: limit,
         ...(filter ? { where: filterOptions } : {}),
         ...(orderBy ? { orderBy: { [orderBy]: orderDirection || "asc" } } : {}),
       }),
@@ -58,29 +50,7 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
     const currentPage = Math.floor(offset / limit) + 1;
 
     return {
-      items: students.map((student: any) => {
-        const mappedStudent = StudentMappper.fromDatabase(student);
-        const mappedEnrollment = EnrollmentMappper.fromDatabase(
-          student.enrollment
-        );
-        const mappedClass = ClassMappper.fromDatabase(student.enrollment.class);
-        const mappedCourse = CourseMapper.fromDatabase(
-          student.enrollment.class.course
-        );
-
-        return {
-          ...mappedStudent,
-          enrollment: {
-            ...mappedEnrollment,
-            class: {
-              ...mappedClass,
-              course: {
-                ...mappedCourse,
-              },
-            },
-          },
-        };
-      }),
+      items: students.map((student) => StudentMappper.fromDatabase(student)),
       pageInfos: {
         totalItems,
         totalPages,
@@ -90,7 +60,22 @@ export class PostgreSQLStudentRepository implements IStudentRepository {
   }
 
   async show(id: number): Promise<Student | null> {
-    const findedStudent = await prisma.student.findUnique({ where: { id } });
+    const findedStudent = await prisma.student.findUnique({
+      where: { id },
+      include: {
+        enrollment: {
+          include: {
+            class: {
+              include: {
+                course: {
+                  select: { id: true, name: true, description: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
 
     if (!findedStudent) return null;
 

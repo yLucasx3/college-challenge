@@ -18,9 +18,7 @@ export type IStudentPropsWithEnrollment = IStudentProps & {
 };
 
 export interface IStudentRepository {
-  list(
-    options: IPaginatedRequest
-  ): Promise<IPaginatedResponse<IStudentPropsWithEnrollment>>;
+  list(options: IPaginatedRequest): Promise<IPaginatedResponse<Student>>;
   show(id: number): Promise<Student | null>;
   showByDocument(document: string): Promise<Student | null>;
   create(student: IStudentProps): Promise<Student>;

@@ -6,13 +6,32 @@ import { updateStudentFactory } from "@/infra/factories/student/update-student.f
 import { listStudentsFactory } from "@/infra/factories/student/list-students.factory";
 import { isAuthenticateFactory } from "@/infra/factories/is-authenticated.factory";
 import { expressMiddlewareAdapter } from "../express-middleware-adapter";
+import { showStudentFactory } from "@/infra/factories/student/show-student.factory";
 
 export default (router: Router) => {
-  router.get("/students", expressMiddlewareAdapter(isAuthenticateFactory), expressRouteAdapter(listStudentsFactory));
+  router.get(
+    "/students/:id",
+    expressMiddlewareAdapter(isAuthenticateFactory),
+    expressRouteAdapter(showStudentFactory)
+  );
 
-  router.post("/students", expressMiddlewareAdapter(isAuthenticateFactory), expressRouteAdapter(createStudentFactory));
+  router.get(
+    "/students",
+    expressMiddlewareAdapter(isAuthenticateFactory),
+    expressRouteAdapter(listStudentsFactory)
+  );
 
-  router.put("/students/:studentId", expressMiddlewareAdapter(isAuthenticateFactory), expressRouteAdapter(updateStudentFactory));
+  router.post(
+    "/students",
+    expressMiddlewareAdapter(isAuthenticateFactory),
+    expressRouteAdapter(createStudentFactory)
+  );
+
+  router.put(
+    "/students/:studentId",
+    expressMiddlewareAdapter(isAuthenticateFactory),
+    expressRouteAdapter(updateStudentFactory)
+  );
 
   router.delete(
     "/students/:studentId",
