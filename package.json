@@ -5,6 +5,10 @@
     "packages/*"
   ],
   "dependencies": {},
+  "scripts": {
+    "dev:client": "cd packages/college-client && npm run dev",
+    "dev:api": "cd packages/college-api && npm run dev"
+  },
   "devDependencies": {
     "lerna": "^8.1.2"
   }
