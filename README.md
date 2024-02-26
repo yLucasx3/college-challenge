@@ -18,4 +18,4 @@ A real-time voting system where users can create a poll and other users can cast
 - Run API (`npm run dev:api`);
 - Run CLIENT (`npm run dev:client`);
 
-- Test API it! (I personally recommend testing with [Hoppscotch](https://hoppscotch.io/)).
+- Test API here! (I personally recommend testing with [Hoppscotch](https://hoppscotch.io/)).
