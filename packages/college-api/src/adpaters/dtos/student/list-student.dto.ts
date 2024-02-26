@@ -27,7 +27,7 @@ export class ListStudentResponseDTO {
               name: item.enrollment.class.name,
               course: {
                 id: item.enrollment.class.course.id,
-                description: item.enrollment.class.course.description,
+                name: item.enrollment.class.course.name,
               },
             },
           },

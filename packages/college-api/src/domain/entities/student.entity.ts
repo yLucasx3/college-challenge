@@ -2,6 +2,7 @@ import { Document } from "../validation/invalid-document.validation";
 import { Email } from "../validation/invalid-email.validation";
 import { FullName } from "../validation/invalid-full-name.validation";
 import { BaseEntity, IBaseProps } from "./base.entity";
+import { IEnrollmentProps } from "./enrollment.entity";
 
 export type IStudentProps = {
   id?: number;
@@ -14,13 +15,15 @@ export type IStudentProps = {
 
 export class Student
   extends BaseEntity<IStudentProps>
-  implements IStudentProps {
+  implements IStudentProps
+{
   readonly id?: number;
   fullName: FullName;
   email: Email;
   document: Document;
   enrollmentId?: number;
   academicRecord?: string;
+  enrollment?: IEnrollmentProps;
 
   constructor(props?: IStudentProps) {
     super(props);
